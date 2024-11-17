@@ -5,59 +5,30 @@ class Parser {
       this.currentToken = this.tokens[this.position];
     }
   
-    eat(tokenType) {
-      if (this.currentToken.type === tokenType) {
+    eat(type) {
+      if (this.currentToken.type === type) {
         this.position++;
-        this.currentToken = this.tokens[this.position] || { type: 'EOF' }; // Safe fallback to EOF
+        this.currentToken = this.tokens[this.position];
       } else {
-        throw new Error(`Expected ${tokenType}, found ${this.currentToken.type}`);
+        throw new Error(`Expected ${type}, found ${this.currentToken.type}`);
       }
     }
   
-    factor() {
-      if (this.currentToken.type === 'NUMBER') {
-        const value = this.currentToken.value;
-        this.eat('NUMBER');
-        return value;
-      } else if (this.currentToken.type === 'IDENTIFIER') {
-        const id = this.currentToken.value;
-        this.eat('IDENTIFIER');
-        return id;
-      } else {
-        throw new Error(`Unexpected token: ${this.currentToken.type}`);
-      }
-    }
-  
-    expression() {
-      let result = this.factor();
-  
-      while (this.currentToken.type === 'PLUS' || this.currentToken.type === 'MINUS') {
-        const operator = this.currentToken;
-        this.eat(operator.type);
-        const right = this.factor();
-        if (operator.type === 'PLUS') {
-          result = `${result} + ${right}`;
-        } else if (operator.type === 'MINUS') {
-          result = `${result} - ${right}`;
-        }
-      }
-  
-      return result;
-    }
-  
-    statement() {
-      const id = this.currentToken.value;
+    parseAssignment() {
+      const identifier = this.currentToken.value;
       this.eat('IDENTIFIER');
       this.eat('ASSIGN');
-      const value = this.expression();
-      this.eat('SEMICOLON');
-      return { type: 'ASSIGNMENT', id, value };
+      const value = this.currentToken.value;
+      this.eat('NUMBER');
+      return { type: 'ASSIGNMENT', id: identifier, value };
     }
   
     program() {
       const statements = [];
       while (this.currentToken.type !== 'EOF') {
-        statements.push(this.statement());
+        if (this.currentToken.type === 'IDENTIFIER') {
+          statements.push(this.parseAssignment());
+        }
       }
       return statements;
     }

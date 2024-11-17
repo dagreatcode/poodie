@@ -1,2 +1,22 @@
-/node_modules
+# Node.js dependencies
+node_modules/
+
+# Logs
+*.log
+
+# IDE configurations
+.vscode/
+.idea/
+
+# Build and temporary files
+build/
+dist/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# .env files for environment variables
 .env
+.env.local
+.env.*.local
