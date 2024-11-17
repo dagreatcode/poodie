@@ -1,0 +1,19 @@
+{
+  "name": "poodie",
+  "version": "1.0.0",
+  "description": "0",
+  "main": "mylang.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "v8": "^0.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

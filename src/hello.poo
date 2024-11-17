@@ -1,0 +1,5 @@
+// hello.poo
+x = "Hello, World!";
+y = "Poodie language";
+print(x);
+print(y);
