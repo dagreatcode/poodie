@@ -1,0 +1,66 @@
+// Import necessary modules and libraries for Poodie
+import env;  // Environment loading
+import poodie_parser;  // Parsing `.poo` file for routes
+import websocket;  // WebSocket support
+import http;  // HTTP route handling
+
+// Struct to hold route information (a simplified version for the example)
+struct Route {
+    path: string,
+    handler: fn() -> string,  // Handler function for the route
+}
+
+// Function to load environment variables from a .env file
+fn load_env() {
+    env::load(".env");  // Load the .env file for environment settings
+}
+
+// Function to parse a .poo file and return routes
+fn parse_routes(file: string) -> list<Route> {
+    let routes = poodie_parser::parse_file(file);  // Parse the .poo file for routes
+    return routes;
+}
+
+// WebSocket handler function (for example, on message receive)
+fn on_message(msg: string) {
+    println("Received WebSocket message: {}", msg);  // Log the message
+}
+
+// Function to start a WebSocket server
+fn start_websocket_server() {
+    let server = websocket::Server.new(8080);  // Start WebSocket server on port 8080
+    server.on_connect(|socket| {
+        socket.on_message(on_message);  // Attach on_message handler
+    });
+    server.listen();  // Listen for incoming WebSocket connections
+}
+
+// Simple function for an HTTP handler
+fn get_user_handler() -> string {
+    return "User data returned";  // Simulated response
+}
+
+// Function to register HTTP routes dynamically
+fn setup_routes(routes: list<Route>) {
+    for route in routes {
+        http::route(route.path, route.handler);  // Register each route
+    }
+}
+
+// Main function that initializes everything and starts the server
+fn main() {
+    // Load environment variables from the .env file
+    load_env();
+
+    // Parse routes from the example.poo file
+    let routes = parse_routes("example.poo");
+
+    // Dynamically set up HTTP routes based on parsed .poo file
+    setup_routes(routes);
+
+    // Start WebSocket server
+    start_websocket_server();
+
+    // Start the HTTP server
+    http::start();  // Start handling HTTP requests
+}
