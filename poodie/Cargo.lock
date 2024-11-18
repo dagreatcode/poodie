@@ -810,6 +810,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "poodie_server"
+version = "0.1.0"
+dependencies = [
+ "poodie_routes",
+ "poodie_runtime",
+ "poodie_websocket",
+ "tokio",
+ "warp",
+]
+
+[[package]]
 name = "poodie_websocket"
 version = "0.1.0"
 dependencies = [

@@ -1,0 +1,12 @@
+# poodie_server/Cargo.toml
+[package]
+name = "poodie_server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+poodie_runtime = { path = "../poodie_runtime" }
+poodie_routes = { path = "../poodie_routes" }
+poodie_websocket = { path = "../poodie_websocket" }
+tokio = { version = "1", features = ["full"] }
+warp = "0.3"  # Example for HTTP server framework if needed
