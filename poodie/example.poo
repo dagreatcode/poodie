@@ -1,0 +1,2 @@
+route("/hello", "say_hello")
+ws("/chat", "handle_chat")

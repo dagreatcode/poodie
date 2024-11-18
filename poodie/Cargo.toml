@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = [
+    "poodie_runtime",
+    "poodie_parser",
+    "poodie_routes",
+    "poodie_websocket",
+    "poodie_env"
+]
+
+# Optional: You can add shared dependencies here as well
